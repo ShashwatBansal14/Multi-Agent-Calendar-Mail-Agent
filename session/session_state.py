@@ -15,6 +15,8 @@ def create_session():
         "email_draft": None,
         "email_confirmed": False,
         "email_sent": False,
+        "awaiting_email_confirmation": False,
+
 
         # Calendar related
         "calendar_event": None,
