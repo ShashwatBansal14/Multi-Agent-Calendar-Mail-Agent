@@ -1,8 +1,7 @@
 from agents.intent_router_agent import IntentRouterAgent
 from agents.mail_agent import MailAgent
 from tools.email_tool import send_email
-
-
+from agents.calander_agent import CalendarAgent
 
 class ManagerAgent:
     def __init__(self, session):
@@ -13,6 +12,8 @@ class ManagerAgent:
         self.session = session
         self.intent_router = IntentRouterAgent()
         self.mail_agent=MailAgent()
+        self.calendar_agent = CalendarAgent()
+
 
     def handle_input(self, user_input):
         if self.session["awaiting_email_confirmation"]:
@@ -20,7 +21,6 @@ class ManagerAgent:
                 # Send email
                 send_email(self.session["email_draft"])
 
-                # Update session
                 self.session["email_confirmed"] = True
                 self.session["email_sent"] = True
                 self.session["awaiting_email_confirmation"] = False
@@ -29,7 +29,21 @@ class ManagerAgent:
                     "Email sent successfully"
                 )
 
-                return "Email has been sent successfully."
+                # ✅ Create calendar event AFTER email
+                event = self.calendar_agent.create_event(
+                    self.session["user_input"]
+                )
+
+                self.session["calendar_event"] = event
+
+                self.session["agent_trace"].append(
+                    "Calendar event created"
+                )
+
+                return (
+                    " Email has been sent successfully.\n"
+                    " Calendar event has been created."
+                )
 
             elif user_input.lower() == "no":
                 self.session["email_draft"] = None
