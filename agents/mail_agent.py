@@ -32,7 +32,7 @@ class MailAgent:
         )
 
         return {
-            "to": "example@gmail.com",
+            "to": "shashwatbansal1414@gmail.com",
             "subject": subject,
             "body": body
         }
