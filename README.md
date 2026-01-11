@@ -41,6 +41,8 @@ The project is built as part of an internship learning exercise, focusing on sys
 ---
 
 ## Project Structure
+
+```text
 multi_agent_assistant/
 │
 ├── app.py
@@ -61,7 +63,8 @@ multi_agent_assistant/
 ├── README.md
 ├── .gitignore
 
-
+## Flow Diagram 
+![Flow Image](flow.png)
 
 ---
 
