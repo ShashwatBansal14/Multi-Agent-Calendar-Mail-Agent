@@ -1,23 +1,20 @@
-class CalendarAgent:
-    def create_event(self, user_input, selected_files=None):
-        """
-        Creates a calendar event.
-        Includes attached file references if any.
-        """
+from datetime import datetime, timedelta
 
-        attachment_text = ""
-        if selected_files:
-            attachment_names = ", ".join(
-                [f["name"] for f in selected_files]
-            )
-            attachment_text = f"Attachments: {attachment_names}"
+
+class CalendarAgent:
+    """
+    Prepares calendar event data.
+    """
+
+    def create_event_data(self, user_input):
+        # For now, keep it simple and fixed
+        start_time = datetime.now() + timedelta(hours=1)
+        end_time = start_time + timedelta(hours=1)
 
         return {
-            "title": "Meeting",
-            "date": "Tomorrow",
-            "time": "11:00 AM",
-            "description": (
-                f"Event created based on: '{user_input}'. "
-                f"{attachment_text}"
-            )
+            "title": "Meeting Scheduled via Assistant",
+            "description": f"Meeting created based on request: {user_input}",
+            "start_time": start_time.isoformat(),
+            "end_time": end_time.isoformat(),
+            "attendees": []  # you can add emails later
         }

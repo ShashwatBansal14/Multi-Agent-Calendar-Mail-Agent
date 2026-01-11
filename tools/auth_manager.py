@@ -3,8 +3,11 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-# Scope: send email only (minimal permission)
-SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.send",
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/drive.readonly"
+]
 
 
 def get_credentials():

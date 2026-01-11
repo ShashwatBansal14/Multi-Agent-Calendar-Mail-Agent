@@ -1,12 +1,19 @@
 class MailAgent:
+    """
+    MailAgent is responsible ONLY for creating email drafts.
+    It never sends emails.
+    """
+
     def create_draft(self, user_input, selected_files=None):
         """
-        Creates an email draft.
-        Includes attached Google Drive files if any.
+        Creates an email draft based on user input.
+        Adds Google Drive file links if files are attached.
         """
 
+        # Normalize text for simple rule-based intent
         text = user_input.lower()
 
+        # Simple subject selection
         if "meeting" in text:
             subject = "Meeting Request"
         elif "update" in text:
@@ -14,21 +21,22 @@ class MailAgent:
         else:
             subject = "Regarding Your Request"
 
-        # Build attachment text
-        attachment_text = ""
-        if selected_files:
-            attachment_names = ", ".join(
-                [f["name"] for f in selected_files]
-            )
-            attachment_text = f"\n\nAttachments:\n{attachment_names}"
-
+        # Build email body
         body = (
-            f"Hello,\n\n"
-            f"This email was created based on your request:\n"
-            f"'{user_input}'"
-            f"{attachment_text}\n\n"
-            f"Regards,\n"
-            f"Your Assistant"
+            "Hello,\n\n"
+            "This email was created based on your request:\n"
+            f"\"{user_input}\"\n"
+        )
+
+        # Add Drive attachments (as links)
+        if selected_files:
+            body += "\nAttached files:\n"
+            for file in selected_files:
+                body += f"- {file['name']}: {file['link']}\n"
+
+        body += (
+            "\nRegards,\n"
+            "Your Assistant"
         )
 
         return {
