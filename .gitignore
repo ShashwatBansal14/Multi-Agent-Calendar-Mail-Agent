@@ -1,6 +1,33 @@
-__pycache__/
-.env
+# --- Python & Environments ---
+.venv/
 venv/
-credentials.json
-token.json
+env/
+bin/
+lib/
+.adk/
+__pycache__/
+*.py[cod]
+*$py.class
 
+# --- Google ADK & Secrets ---
+# NEVER push your actual API keys or Service Account JSONs
+.env
+.flaskenv
+*.json
+!example.json
+credentials/
+
+# --- ADK Specifics ---
+# If the ADK generates local session logs or database files
+sessions/
+logs/
+*.log
+.agent_state/
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- IDEs ---
+.vscode/
+.idea/
