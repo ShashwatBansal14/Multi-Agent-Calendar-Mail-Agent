@@ -28,7 +28,7 @@ root_agent = LlmAgent(
        - Then automatically call EmailAgent to send invitations.
        - Use the output from CalendarAgent to fill in the email content.
 
-    2. **THE "BOOM" SCENARIO** (Sending an email about a meeting):
+    2. **THE "Sequential" SCENARIO** (Sending an email about a meeting):
        *This is a multi-step automation. You must finish ALL steps.*
        - **Step 1**: Call `EmailAgent`. Instruction: "Draft an email to [Person] about [Subject] at [Time]. Ask user for confirmation. Transfer back when done."
        - **Step 2**: WAIT. The EmailAgent will talk to the user to confirm the draft.

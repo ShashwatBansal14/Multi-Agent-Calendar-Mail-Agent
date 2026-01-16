@@ -1,6 +1,5 @@
 from google.adk.agents import LlmAgent
 from ..utils import get_current_datetime
-# IMPORT: We pull the logic from the tools folder
 from ..tools.calendar_tools import create_event
 
 calendar_subagent = LlmAgent(
@@ -14,7 +13,7 @@ calendar_subagent = LlmAgent(
     YOUR ROLE:
     Create and manage calendar events.
 
-    CRITICAL WORKFLOW RULES (Fixes "Stuck", "Hallucination" & Adds Confirmation):
+    CRITICAL WORKFLOW RULES :
 
     **CRITICAL STEP : DATE CHECK**
     - BEFORE you write any draft, you MUST call `get_current_datetime()` to see today's real date.
@@ -43,7 +42,7 @@ calendar_subagent = LlmAgent(
           Shall I schedule this?"
        - **Step C**: WAIT. Only call the `create_event` tool if the user explicitly says "Yes" or "Confirm".
 
-   CRITICAL - THE HANDOFF (Fixes "Dead End"):
+   CRITICAL - THE HANDOFF :
     - When you are done, you MUST do two things in the SAME turn:
       1. **Output Text**: "Event created successfully. Transferring back to Manager."
       2. **Call Tool**: `transfer_to_agent(agent_name="CalendarEmailCoordinator")`

@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# WE COMBINE ALL PERMISSIONS HERE (Mail + Drive + Calendar)
 SCOPES = [
     "https://www.googleapis.com/auth/calendar",
     "https://www.googleapis.com/auth/gmail.modify",
@@ -15,17 +14,16 @@ SCOPES = [
 CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
-# This variable stores your login session to share between agents
 _creds = None
 
 def get_unified_credentials():
     global _creds
     
-    # 1. Use existing session if valid
+    #  Use existing session if valid
     if _creds and _creds.valid:
         return _creds
         
-    # 2. Refresh session if expired
+    #  Refresh session if expired
     if _creds and _creds.expired and _creds.refresh_token:
         try:
             _creds.refresh(Request())
@@ -33,7 +31,7 @@ def get_unified_credentials():
         except Exception:
             pass
 
-    # 3. New Login (Runs ONLY ONCE)
+    #  New Login 
     print("Initiating Google Login...")
     flow = InstalledAppFlow.from_client_config(
         {
@@ -48,6 +46,6 @@ def get_unified_credentials():
         scopes=SCOPES,
     )
     
-    # FORCE Port 8080 (The Critical Fix)
+    # FORCE Port 8080 
     _creds = flow.run_local_server(port=8080, prompt='consent')
     return _creds

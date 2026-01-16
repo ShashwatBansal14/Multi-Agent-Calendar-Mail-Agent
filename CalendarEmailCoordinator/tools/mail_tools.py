@@ -4,7 +4,6 @@ import mimetypes
 import asyncio
 from email.message import EmailMessage
 from googleapiclient.discovery import build
-# We go up (..) to root to find auth.py
 from ..auth import get_unified_credentials
 
 def get_gmail_client():

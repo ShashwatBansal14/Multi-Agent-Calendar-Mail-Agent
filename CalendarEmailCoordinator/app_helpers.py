@@ -2,7 +2,7 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 
 def get_creds_from_ctx(tool_context):
-    sess = tool_context.session  # ADK ToolContext
+    sess = tool_context.session  
     key = "google_oauth:unified_scopes"
     data = sess.state.get(key)
     if not data:
@@ -20,10 +20,8 @@ def get_creds_from_ctx(tool_context):
     if not creds.valid and creds.refresh_token:
         try:
             creds.refresh(Request())
-            # persist updated token back
             data.update({"token": creds.token})
             sess.state[key] = data
-            # optional: write-through if your session service requires explicit update
         except Exception:
             pass
 
