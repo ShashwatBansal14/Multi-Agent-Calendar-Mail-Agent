@@ -82,4 +82,4 @@ multi_agent_assistant/
 ## Notes
 - This project is under active development  
 - Calendar, Drive, and Gemini integrations are added incrementally  
-- The focus is on learning correct system design, not rapid automation  
+- The focus is on learning correct system design, not rapid automation  . 
