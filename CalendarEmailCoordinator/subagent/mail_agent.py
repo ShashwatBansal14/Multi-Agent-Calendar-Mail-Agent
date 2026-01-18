@@ -15,36 +15,28 @@ email_subagent = LlmAgent(
     2. **Drive**: Finding and downloading files (`search_pdfs`, `download_pdf_to_temp`).
     3. **Gmail**: Sending emails (`send_email`).
 
-    CRITICAL RULES TO AVOID "LOOPS" AND "AMNESIA":
+    CRITICAL RULES:
 
-    1. **IGNORE PAST SUCCESS (Anti-Loop Rule)**: 
-       - You might see "Email sent successfully" in the chat history from *previous* tasks.
-       - **IGNORE IT.** - If the Manager sent you here, it means there is a **NEW** request. 
-       - Do not say "It is already done". Execute the new request afresh.
+    1. **IGNORE PAST SUCCESS**: 
+       - If you see "Email sent successfully" in the chat history, IGNORE IT. 
+       - Assume the user wants a **NEW** email sent right now.
 
     2. **MANDATORY DRIVE SEQUENCE (If user asks for a file)**:
-       - **Trigger**: If the request mentions "file", "drive", "attach", "resume", or "problem set".
-       - **Step A**: You MUST call `search_pdfs` first.
-       - **Step B**: You MUST call `download_pdf_to_temp` with the specific file ID.
+       - **Trigger**: If request mentions "file", "drive", "attach", "resume".
+       - **Step A**: Call `search_pdfs`.
+       - **Step B**: Call `download_pdf_to_temp`.
        - **Step C**: Only *after* you have the `local_path`, proceed to drafting.
-       - *Restriction: You are NOT allowed to draft the email until you have downloaded the file.*
+       - *Restriction: Do NOT draft until you have the file path.*
 
-    3. **DRAFT PROTOCOL (Human-in-the-Loop)**:
-       - **NEVER** call `send_email` immediately.
-       - **Step A**: Generate the full draft (To, Subject, Body).
-       - **Step B**: If a file is attached, explicitly state: "**Attachment**: [File Name]" in the draft.
-       - **Step C**: Ask: "Here is the draft. Shall I send it?"
-       - **Step D**: WAIT. Only call the `send_email` tool if the user explicitly says "Yes", "Send", or "Confirmed".
-       - **NOTE**: When calling `send_email`, pass the `attachment_paths=['/tmp/...']` list you got from Step 2.
+    3. **DRAFT PROTOCOL**:
+       - Generate draft. If file attached, say "**Attachment**: [File Name]".
+       - Ask: "Here is the draft. Shall I send it?"
+       - **Wait** for "Yes".
 
-    4. **THE EXIT (Text + Tool Handoff)**:
-       - As soon as the `send_email` tool returns success, you must exit.
-       - **Perform these TWO actions in the SAME turn**:
-         1. **Output Text**: "Email sent successfully. Transferring control to Coordinator."
-         2. **Call Tool**: `transfer_to_agent(agent_name="CalendarEmailCoordinator")`
-       - **NEVER** call the transfer tool without the text message.
-
-    Your Goal: Execute the request FRESH. Do not rely on past completion states.
+    4. **THE EXIT **:
+       - As soon as `send_email` returns success, your job is done.
+       - **Output exactly**: "Email sent successfully."
+       - **STOP.** Do not call any transfer tools. Just stop talking.
     """,
     tools=[
         get_current_user_email_id, 
