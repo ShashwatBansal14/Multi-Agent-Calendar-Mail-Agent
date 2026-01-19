@@ -34,7 +34,6 @@ The project is built as part of an internship learning exercise, focusing on sys
 
 ## Authentication
 - Gmail access is handled using Google OAuth 2.0  
-- Authentication tokens are stored locally (`token.json`)  
 - No credentials or tokens are committed to GitHub  
 - Only minimal scopes are requested for safety  
 
@@ -43,25 +42,18 @@ The project is built as part of an internship learning exercise, focusing on sys
 ## Project Structure
 
 ```text
-multi_agent_assistant/
-│
-├── app.py
-├── agents/
-│   ├── manager_agent.py
-│   ├── mail_agent.py
-│   ├── calendar_agent.py
-│   └── intent_router_agent.py
-│
-├── tools/
-│   ├── auth_manager.py
-│   ├── email_tool.py
-│   └── gdrive_tool.py
-│
-├── session/
-│   └── session_state.py
-│
-├── README.md
-├── .gitignore
+CalendarEmailCoordinator/
+├── agent.py                 # The Manager (Router & Greeting logic)
+├── auth.py                  # OAuth2 Scopes & Credentials
+├── utils.py                 # Helper functions (Time/Date)
+├── subagent/
+│   ├── mail_agent.py        # Email Agent (Gmail + Drive Logic)
+│   ├── calendar_agent.py    # Calendar Agent (Auto-book logic)
+│   └── meeting_agent.py     # Sequential Chain (The Wrapper)
+└── tools/
+    ├── mail_tools.py        # Gmail API wrappers
+    ├── calendar_tools.py    # Calendar API wrappers
+    └── drive_tools.py       # Drive Search & Download wrappers
 
 ```
 
@@ -73,9 +65,8 @@ multi_agent_assistant/
 ## How to Run (High Level)
 1. Create and activate a virtual environment  
 2. Install required dependencies  
-3. Add `credentials.json` from Google Cloud Console  
-4. Run the application using `python app.py`  
-5. Follow on-screen prompts  
+3. Run the application using `adk web`  
+4. Follow on-screen prompts  
 
 ---
 
