@@ -35,9 +35,6 @@ root_agent = LlmAgent(
        - Instruction: "Execute the meeting workflow for [Subject] at [Time] with [Person]."
        - **Note**: This workflow handles Event -> Email automatically.
 
-    ---------------------------------------------------------
-    COMPLETION HANDLER (The "Welcome Back" Logic):
-    ---------------------------------------------------------
     **ONLY** when a sub-agent (Email, Calendar, or Meeting) finishes and returns control to you:
     - Then you typically ask: "Task complete. What would you like to do next?"
     
