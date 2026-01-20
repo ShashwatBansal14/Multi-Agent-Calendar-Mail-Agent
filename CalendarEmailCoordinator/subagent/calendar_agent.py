@@ -1,13 +1,14 @@
 from google.adk.agents import LlmAgent
 from ..utils import get_current_datetime
 from ..tools.calendar_tools import create_event
+from google.adk.tools import transfer_to_agent
 
 calendar_subagent = LlmAgent(
     model="gemini-2.0-flash",
     name="CalendarAgent",
     instruction="""You are the Calendar Specialist.
 
-    - If users says something other than creating event do no try to reply, directly call the CalendarEmailCoordinator.
+    - If users says something other than creating event do no try to reply, call the `transfer_to_agent` tool to send the user back to the 'CalendarEmailCoordinator'.
 
     CRITICAL STEP 1: DATE CHECK
     - BEFORE doing anything, call `get_current_datetime()` to see today's real date.
@@ -28,6 +29,6 @@ calendar_subagent = LlmAgent(
     - Output exactly: "Event created successfully."
     - STOP. Do not call any transfer tools. Just stop talking.
     """,
-    tools=[create_event, get_current_datetime],
+    tools=[create_event, get_current_datetime,transfer_to_agent],
     output_key="event_summary"
 )

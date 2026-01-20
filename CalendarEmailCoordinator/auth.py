@@ -8,7 +8,7 @@ load_dotenv()
 SCOPES = [
     "https://www.googleapis.com/auth/calendar",
     "https://www.googleapis.com/auth/gmail.modify",
-    "https://www.googleapis.com/auth/drive.readonly"
+    "https://www.googleapis.com/auth/drive.readonly",
 ]
 
 CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -16,13 +16,14 @@ CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
 _creds = None
 
+
 def get_unified_credentials():
     global _creds
-    
+
     #  Use existing session if valid
     if _creds and _creds.valid:
         return _creds
-        
+
     #  Refresh session if expired
     if _creds and _creds.expired and _creds.refresh_token:
         try:
@@ -31,7 +32,7 @@ def get_unified_credentials():
         except Exception:
             pass
 
-    #  New Login 
+    #  New Login
     print("Initiating Google Login...")
     flow = InstalledAppFlow.from_client_config(
         {
@@ -45,7 +46,7 @@ def get_unified_credentials():
         },
         scopes=SCOPES,
     )
-    
-    # FORCE Port 8080 
-    _creds = flow.run_local_server(port=8080, prompt='consent')
+
+    # FORCE Port 8080
+    _creds = flow.run_local_server(port=8080, prompt="consent")
     return _creds
