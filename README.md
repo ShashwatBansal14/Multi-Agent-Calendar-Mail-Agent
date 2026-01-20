@@ -69,8 +69,3 @@ CalendarEmailCoordinator/
 4. Follow on-screen prompts  
 
 ---
-
-## Notes
-- This project is under active development  
-- Calendar, Drive, and Gemini integrations are added incrementally  
-- The focus is on learning correct system design, not rapid automation  . 
