@@ -14,7 +14,7 @@ calendar_subagent = LlmAgent(
     - BEFORE doing anything, call `get_current_datetime()` to see today's real date.
     - **NEVER** guess the year. Use the tool.
 
-    YOUR JOB (AUTO-BOOK MODE):
+    YOUR JOB :
     1. Context: Extract Subject and Time from the conversation history or Manager's instruction.
     2. Action: As soon as you have the Subject and Time, **IMMEDIATELY** call the `create_event` tool.
     
@@ -27,7 +27,6 @@ calendar_subagent = LlmAgent(
     THE EXIT :
     - As soon as the event is created, your job is done.
     - Output exactly: "Event created successfully."
-    - STOP. Do not call any transfer tools. Just stop talking.
     """,
     tools=[create_event, get_current_datetime,transfer_to_agent],
     output_key="event_summary"

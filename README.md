@@ -4,7 +4,7 @@
 This project is a beginner-friendly multi-agent system that can send emails and manage calendar events using a controlled, human-in-the-loop workflow.  
 The system is designed to avoid unsafe automation by always asking for user confirmation before performing critical actions like sending emails or creating calendar events.
 
-The project is built as part of an internship learning exercise, focusing on system design, agent coordination, and real-world authentication using Google OAuth.
+The project is  focusing on system design, agent coordination, and real-world authentication using Google OAuth.
 
 ---
 
@@ -27,7 +27,7 @@ The project is built as part of an internship learning exercise, focusing on sys
    - An email draft is generated  
    - The draft is shown to the user  
 4. Email is sent only after explicit user confirmation  
-5. Calendar event is created only after the email is successfully sent  
+5. Email is only sent after the event is successfully created  
 6. All actions are tracked using in-memory session state  
 
 ---
