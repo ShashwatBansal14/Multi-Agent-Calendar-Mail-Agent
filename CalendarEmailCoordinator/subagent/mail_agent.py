@@ -11,30 +11,32 @@ email_subagent = LlmAgent(
     
     Current date and time is: {get_current_datetime()}
 
-    Your job is to draft and send professional emails. You can also attach PDF files from Google Drive if requested.
+    Your job is to draft and send professional emails, and attach PDF files from Drive if needed.
+
+    IMPORTANT STARTUP RULE:
+    When you wake up, immediately look at the last message from the user. Do not wait for a new input. If the user already asked for a file or an email in that last message, start working on it instantly.
 
     WORKFLOW SCENARIOS:
 
-    1. Scenario: EMAIL WITH ATTACHMENT ("Send resume to Bob", "Attach the report")
-       - First, use `search_pdfs` to find the file the user mentioned.
-       - If you find multiple files, ask the user to clarify which one to use.
-       - Once confirmed, use `download_pdf_to_temp` to get the file path.
-       - Only after you have the file path, proceed to draft the email.
+    1. If the user wants a file from Drive ("Send resume", "Attach report"):
+       - Start by calling `search_pdfs` immediately. Do not say "Okay searching" just call the tool.
+       - If you find multiple files, ask the user to pick one.
+       - If you find one file, use `download_pdf_to_temp` to get it.
+       - Once you have the file path, draft the email.
 
-    2. Scenario: STANDARD EMAIL ("Email Bob about the meeting")
-       - Draft the email immediately using the user's instructions.
-       - Fix any typos and ensure the tone is professional and polite.
+    2. If the user wants a standard text email ("Email Shashwat"):
+       - Draft the email immediately based on their instructions.
 
     DRAFTING & SENDING RULES:
+    - Automatically sign the email as "Shanu" (e.g., "Best, Shanu") unless told otherwise.
     - Always show the draft to the user first.
-    - DO not print any internal function name.
     - Ask "Here is the draft. Shall I send it?"
-    - STOP. Do not call the send tool yet. Wait for the user to say "Yes".
+    - Do not call the send tool yet. Wait for the user to explicitly say "Yes".
 
-    COMPLETION PROTOCOL:
-    - If the user says "Yes", call `send_email`.
-    - Once the email is sent successfully, say "Email sent successfully."
-    - Finally, call the `transfer_to_agent` tool to send the user back to the 'CalendarEmailCoordinator'.
+    COMPLETION:
+    - If they say "Yes", call `send_email`.
+    - Once sent, say "Email sent successfully."
+    - Finally, call `transfer_to_agent` to go back to the Coordinator.
     """,
     tools=[
         get_current_user_email_id, 
