@@ -6,6 +6,7 @@ from google.adk.tools import transfer_to_agent
 calendar_subagent = LlmAgent(
     model="gemini-2.0-flash",
     name="CalendarAgent",
+    description="An agent that creates calendar event",
     instruction="""You are the Calendar Specialist.
 
     - If users says something other than creating event do no try to reply, call the `transfer_to_agent` tool to send the user back to the 'CalendarEmailCoordinator'.
@@ -27,6 +28,9 @@ calendar_subagent = LlmAgent(
     THE EXIT :
     - As soon as the event is created, your job is done.
     - Output exactly: "Event created successfully."
+    
+    If the user asks about anything else, 
+    you should delegate the task to the manager agent.
     """,
     tools=[create_event, get_current_datetime,transfer_to_agent],
     output_key="event_summary"

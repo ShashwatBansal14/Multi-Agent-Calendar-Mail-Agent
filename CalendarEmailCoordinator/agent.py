@@ -8,7 +8,7 @@ root_agent = LlmAgent(
     name="CalendarEmailCoordinator",
     model="gemini-2.0-flash",
     sub_agents=[calendar_subagent, email_subagent, meeting_agent],
-    
+    description="Manager Agent ",
     instruction="""You are a smart Executive Assistant Coordinator.
 
     IMPORTANT: Current date and time is: {get_current_datetime()}

@@ -7,6 +7,7 @@ from ..tools.drive_tools import search_pdfs, download_pdf_to_temp
 email_subagent = LlmAgent(
     model='gemini-2.0-flash',
     name='EmailAgent',
+    description="An agent that send emails and attach files from drive",
     instruction="""You are the Email Specialist.
     
     Current date and time is: {get_current_datetime()}
