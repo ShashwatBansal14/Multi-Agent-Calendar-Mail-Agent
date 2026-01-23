@@ -49,5 +49,5 @@ root_agent = LlmAgent(
     - If a sub-agent returns control to you after finishing work, ask: "Task complete. What would you like to do next?"
     - If the user was just saying Hi (Scenario 1) or asked something unsupported (Scenario 6), simply wait for their reply.
     """,
-    tools=[get_current_datetime]
+    tools=[get_current_datetime],
 )
