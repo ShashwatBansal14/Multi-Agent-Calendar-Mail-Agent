@@ -10,7 +10,7 @@ __pycache__/
 *$py.class
 
 # --- Google ADK & Secrets ---
-# NEVER push your actual API keys or Service Account JSONs
+
 .env
 .flaskenv
 *.json
@@ -18,7 +18,7 @@ __pycache__/
 credentials/
 
 # --- ADK Specifics ---
-# If the ADK generates local session logs or database files
+
 sessions/
 logs/
 *.log
